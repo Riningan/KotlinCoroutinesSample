@@ -6,9 +6,6 @@ import retrofit2.http.Path
 
 
 interface OpenDota2Api {
-    @GET("/heroes")
+    @GET("heroStats")
     fun getHeroes(): Deferred<List<HeroResponse>>
-
-    @GET("/heroes/{hero_id}/matches")
-    fun getHeroMathes(@Path("hero_id") heroId: String): Deferred<List<HeroMathesResponse>>
 }

@@ -1,9 +1,9 @@
-package com.riningan.dota2heroes.presentation.ui.list
+package com.riningan.dota2heroes.presentation.ui.item
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.riningan.dota2heroes.data.HeroesRepository
-import com.riningan.dota2heroes.data.model.Hero
-import com.riningan.dota2heroes.presentation.ui.item.ItemFragment
+import com.riningan.frarg.annotations.Argument
+import com.riningan.frarg.annotations.ArgumentedFragment
 import com.riningan.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +14,12 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 
-class ListPresenter @Inject constructor(private val mRouter: Router,
-                                        private val mHeroesRepository: HeroesRepository) : MvpBasePresenter<ListView>() {
+@ArgumentedFragment(fragmentClass = ItemFragment::class)
+class ItemPresenter @Inject constructor(private val mRouter: Router,
+                                        private val mHeroesRepository: HeroesRepository) : MvpBasePresenter<ItemView>() {
+    @Argument
+    var mHeroId = 0
+
     private var myJob: Job? = null
 
 
@@ -23,17 +27,18 @@ class ListPresenter @Inject constructor(private val mRouter: Router,
         Logger.debug()
         myJob = CoroutineScope(Dispatchers.IO).launch {
             mHeroesRepository
-                    .getAll()
+                    .getById(mHeroId)
                     .fold({ t ->
                         Logger.error(t)
                         withContext(Dispatchers.Main) {
                             ifViewAttached { it.showError(t.localizedMessage) }
                         }
-                    }) { heroes ->
+                    }) { hero ->
                         withContext(Dispatchers.Main) {
-                            ifViewAttached { it.updateList(heroes) }
+                            ifViewAttached { it.render(hero) }
                         }
                     }
+
         }
     }
 
@@ -42,8 +47,8 @@ class ListPresenter @Inject constructor(private val mRouter: Router,
         myJob?.cancel()
     }
 
-    fun onItemClick(hero: Hero) {
-        Logger.debug("id", hero.id)
-        mRouter.navigateTo(ItemFragment::class.java.canonicalName, hero.id)
+    fun onBackClick() {
+        Logger.debug()
+        mRouter.exit()
     }
 }

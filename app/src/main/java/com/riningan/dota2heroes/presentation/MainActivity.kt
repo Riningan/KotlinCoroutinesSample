@@ -2,9 +2,7 @@ package com.riningan.dota2heroes.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
-import com.riningan.dota2heroes.BuildConfig
 import com.riningan.dota2heroes.R
-import com.riningan.dota2heroes.app.App
 import com.riningan.dota2heroes.app.di.NetworkModule
 import com.riningan.dota2heroes.app.di.RepositoryModule
 import com.riningan.dota2heroes.app.di.RouteModule
@@ -59,9 +57,5 @@ class MainActivity : FragmentActivity() {
         Toothpick.closeScope(this.javaClass.canonicalName)
         mNavigator = null
         super.onDestroy()
-        // LeakCanary
-        if (BuildConfig.DEBUG) {
-            App.getRefWatcher().watch(this)
-        }
     }
 }
