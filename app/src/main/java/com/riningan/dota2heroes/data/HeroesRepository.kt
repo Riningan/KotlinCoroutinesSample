@@ -6,7 +6,7 @@ import com.riningan.dota2heroes.data.network.OpenDota2Api
 import javax.inject.Inject
 
 
-class HeroesRepository @Inject constructor(private val mOpenDota2Api: OpenDota2Api) {
+open class HeroesRepository @Inject constructor(private val mOpenDota2Api: OpenDota2Api) {
     private val mCache = arrayListOf<Hero>()
 
 
