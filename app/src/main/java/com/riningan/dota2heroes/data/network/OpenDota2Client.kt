@@ -38,6 +38,6 @@ class OpenDota2Client {
 
     companion object {
         private const val TIMEOUT = 30000L
-        private const val BASE_URL = "https://api.opendota.com/api/"
+        var BASE_URL = "https://api.opendota.com/api/"
     }
 }

@@ -5,11 +5,7 @@ import com.riningan.dota2heroes.data.HeroesRepository
 import com.riningan.frarg.annotations.Argument
 import com.riningan.frarg.annotations.ArgumentedFragment
 import com.riningan.util.Logger
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 

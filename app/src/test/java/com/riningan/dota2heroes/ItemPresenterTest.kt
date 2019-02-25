@@ -1,11 +1,13 @@
 package com.riningan.dota2heroes
 
 import arrow.core.Try
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.riningan.dota2heroes.data.HeroesRepository
-import com.riningan.dota2heroes.presentation.ui.item.ItemFragment
-import com.riningan.dota2heroes.presentation.ui.list.ListPresenter
-import com.riningan.dota2heroes.presentation.ui.list.ListView
+import com.riningan.dota2heroes.presentation.ui.item.ItemPresenter
+import com.riningan.dota2heroes.presentation.ui.item.ItemView
 import com.riningan.util.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,11 +23,11 @@ import ru.terrakok.cicerone.Router
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
-class ListPresenterTest {
+class ItemPresenterTest {
     private lateinit var mMockRouter: Router
     private lateinit var mMockHeroesRepository: HeroesRepository
-    private lateinit var mMockListView: ListView
-    private lateinit var mListPresenter: ListPresenter
+    private lateinit var mMockItemView: ItemView
+    private lateinit var mItemPresenter: ItemPresenter
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
 
@@ -35,11 +37,12 @@ class ListPresenterTest {
         Logger.Config.setEnabled(false)
         mMockRouter = mock()
         mMockHeroesRepository = mock {
-            onBlocking { getAll() } doReturn Try { listOf(Hero1, Hero2) }
+            onBlocking { getById(Hero1.id) } doReturn Try { Hero1 }
         }
-        mMockListView = mock()
-        mListPresenter = ListPresenter(mMockRouter, mMockHeroesRepository)
-        mListPresenter.attachView(mMockListView)
+        mMockItemView = mock()
+        mItemPresenter = ItemPresenter(mMockRouter, mMockHeroesRepository)
+        mItemPresenter.mHeroId = Hero1.id
+        mItemPresenter.attachView(mMockItemView)
     }
 
     @After
@@ -51,16 +54,16 @@ class ListPresenterTest {
 
     @Test
     fun update() {
-        mListPresenter.update()
+        mItemPresenter.update()
 
-        verifyBlocking(mMockHeroesRepository) { getAll() }
-        verify(mMockListView).updateList(any())
+        verifyBlocking(mMockHeroesRepository) { getById(Hero1.id) }
+        verify(mMockItemView).render(Hero1)
     }
 
     @Test
-    fun onItemClick() {
-        mListPresenter.onItemClick(Hero1)
+    fun onBackClick() {
+        mItemPresenter.onBackClick()
 
-        verify(mMockRouter).navigateTo(ItemFragment::class.java.canonicalName, Hero1.id)
+        verify(mMockRouter).exit()
     }
 }

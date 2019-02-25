@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        app:navigationContentDescription="@string/item_back"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:title="@string/app_name"
         tools:ignore="UnusedAttribute" />

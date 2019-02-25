@@ -33,8 +33,8 @@ class HeroesRepositoryUnitTest {
     fun getAll() {
         runBlocking {
             val heroes = mHeroesRepository
-                .getAll()
-                .getOrDefault { arrayListOf() }
+                    .getAll()
+                    .getOrDefault { arrayListOf() }
             verify(mMockOpenDota2Api).getHeroes()
             assertEquals(heroes.size, 2)
             assertEquals(heroes[0], Hero1)
@@ -42,8 +42,8 @@ class HeroesRepositoryUnitTest {
 
             // call again
             mHeroesRepository
-                .getAll()
-                .getOrDefault { arrayListOf() }
+                    .getAll()
+                    .getOrDefault { arrayListOf() }
             verify(mMockOpenDota2Api, Times(1)).getHeroes()
         }
     }
@@ -53,15 +53,15 @@ class HeroesRepositoryUnitTest {
     fun getById() {
         runBlocking {
             val hero = mHeroesRepository
-                .getById(Hero1.id)
-                .getOrDefault { Hero1 }
+                    .getById(Hero1.id)
+                    .getOrDefault { Hero1 }
             verify(mMockOpenDota2Api).getHeroes()
             assertEquals(hero, Hero1)
 
             // call again
             mHeroesRepository
-                .getAll()
-                .getOrDefault { arrayListOf() }
+                    .getAll()
+                    .getOrDefault { arrayListOf() }
             verify(mMockOpenDota2Api, Times(1)).getHeroes()
         }
     }

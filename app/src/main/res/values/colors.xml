@@ -3,6 +3,4 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#C8C8C8</color>
     <color name="colorAccent">#0047FF</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorSurfacePressed">#e0e0e0</color>
 </resources>

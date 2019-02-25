@@ -14,9 +14,9 @@ class Navigator constructor(activity: FragmentActivity, containerId: Int) : Supp
     override fun createActivityIntent(context: Context?, screenKey: String?, data: Any?): Intent? = null
 
     override fun createFragment(screenKey: String?, data: Any?): Fragment? =
-        when (screenKey) {
-            ListFragment::class.java.canonicalName -> FragmentBuilder.newListFragmentInstance()
-            ItemFragment::class.java.canonicalName -> FragmentBuilder.newItemFragmentInstance(data as Int)
-            else -> null
-        }
+            when (screenKey) {
+                ListFragment::class.java.canonicalName -> FragmentBuilder.newListFragmentInstance()
+                ItemFragment::class.java.canonicalName -> FragmentBuilder.newItemFragmentInstance(data as Int)
+                else -> null
+            }
 }

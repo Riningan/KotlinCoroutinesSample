@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dota2Heroes</string>
+    <string name="item_back">back</string>
 </resources>

@@ -16,7 +16,7 @@ class ListAdapter(private val mListener: OnItemClickListener) : RecyclerView.Ada
     override fun getItemCount() = mHeroes.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false))
+            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(mHeroes[position])
@@ -37,7 +37,7 @@ class ListAdapter(private val mListener: OnItemClickListener) : RecyclerView.Ada
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private lateinit var mHero : Hero
+        private lateinit var mHero: Hero
 
 
         init {

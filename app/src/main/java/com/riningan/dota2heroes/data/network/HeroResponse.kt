@@ -26,5 +26,4 @@ data class HeroResponse(
         @Json(name = "6_pick") var pick6: Int,
         @Json(name = "6_win") var win6: Int,
         @Json(name = "7_pick") var pick7: Int,
-        @Json(name = "7_win") var win7: Int
-)
+        @Json(name = "7_win") var win7: Int)

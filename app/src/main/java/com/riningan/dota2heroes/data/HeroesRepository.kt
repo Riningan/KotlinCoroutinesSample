@@ -10,9 +10,9 @@ open class HeroesRepository @Inject constructor(private val mOpenDota2Api: OpenD
     private val mCache = arrayListOf<Hero>()
 
 
-    suspend fun getAll(): Try<List<Hero>> = Try { get() }
+    open suspend fun getAll(): Try<List<Hero>> = Try { get() }
 
-    suspend fun getById(heroId: Int): Try<Hero> = Try {
+    open suspend fun getById(heroId: Int): Try<Hero> = Try {
         get().find { it.id == heroId } ?: throw NullPointerException()
     }
 
