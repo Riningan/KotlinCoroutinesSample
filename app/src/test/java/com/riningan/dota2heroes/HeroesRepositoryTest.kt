@@ -14,7 +14,7 @@ import org.junit.Test
 import org.mockito.internal.verification.Times
 
 
-class HeroesRepositoryUnitTest {
+class HeroesRepositoryTest {
     private lateinit var mMockOpenDota2Api: OpenDota2Api
     private lateinit var mHeroesRepository: HeroesRepository
 
