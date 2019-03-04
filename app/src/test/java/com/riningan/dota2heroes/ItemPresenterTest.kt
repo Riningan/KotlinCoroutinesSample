@@ -28,12 +28,12 @@ class ItemPresenterTest {
     private lateinit var mMockHeroesRepository: HeroesRepository
     private lateinit var mMockItemView: ItemView
     private lateinit var mItemPresenter: ItemPresenter
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    private val mMainThreadSurrogate = newSingleThreadContext("UI thread")
 
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(mMainThreadSurrogate)
         Logger.Config.setEnabled(false)
         mMockRouter = mock()
         mMockHeroesRepository = mock {
@@ -48,7 +48,7 @@ class ItemPresenterTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
+        mMainThreadSurrogate.close()
     }
 
 
