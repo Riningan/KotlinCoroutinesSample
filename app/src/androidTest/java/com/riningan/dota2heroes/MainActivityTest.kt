@@ -6,7 +6,9 @@ import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.riningan.dota2heroes.data.network.OpenDota2Client
@@ -15,7 +17,6 @@ import com.riningan.dota2heroes.presentation.ui.list.ListAdapter
 import okhttp3.mockwebserver.MockWebServer
 import org.awaitility.Awaitility.await
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.Matchers
 import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -56,10 +57,9 @@ class MainActivityTest {
         await().atMost(20, TimeUnit.SECONDS)
                 .ignoreExceptions()
                 .untilAsserted {
-                    onView(Matchers.allOf(isDisplayed(), withId(R.id.rvList)))
-                            .check(recyclerViewItemCountAssertion(116))
+                    onView(withId(R.id.rvList)).check(recyclerViewItemCountAssertion(116))
                 }
-        onView(Matchers.allOf(isDisplayed(), withId(R.id.rvList)))
+        onView(withId(R.id.rvList))
                 .perform(actionOnItemAtPosition<ListAdapter.ViewHolder>(0, click()))
         await().atMost(15, TimeUnit.SECONDS)
                 .ignoreExceptions()
